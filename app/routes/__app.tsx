@@ -48,7 +48,7 @@ const Home = (props: Props) => {
             onClick={() => setSearchParams({ ...searchParams, modal: 'true' })}
           >
             <Icon icon={plus} className="text-white !flex" />
-            <span className="text-white">Add</span>
+            <span className="text-white">{params?.id ? 'Update' : 'Add'}</span>
           </button>
         </header>
         <ul>

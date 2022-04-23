@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLoaderData } from '@remix-run/react';
-import { json } from '@remix-run/node';
+import { json, ActionFunction } from '@remix-run/node';
 import { GraphQLClient, gql } from 'graphql-request';
 
 import Translate from '~/components/article/translate';
@@ -33,6 +33,12 @@ export let loader = async ({ params }: any) => {
   });
 
   return json({ article });
+};
+
+export const action: ActionFunction = async ({ request }) => {
+  const body = await request.formData();
+  console.log('bsss:', body);
+  return null;
 };
 
 const ArticleId = () => {
