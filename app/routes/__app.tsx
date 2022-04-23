@@ -1,7 +1,16 @@
-import { useLoaderData, Outlet, Link, useParams } from '@remix-run/react';
+import {
+  useLoaderData,
+  Outlet,
+  Link,
+  useParams,
+  useSearchParams,
+} from '@remix-run/react';
 import { json } from '@remix-run/node';
 import { GraphQLClient, gql } from 'graphql-request';
 import clsx from 'clsx';
+import { plus } from 'react-icons-kit/fa/plus';
+import Icon from 'react-icons-kit';
+import AddArticleModal from '~/components/article/add-article.modal';
 
 const GetArticlesQuery = gql`
   {
@@ -28,10 +37,20 @@ type Props = {};
 const Home = (props: Props) => {
   let data = useLoaderData();
   const params = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   return (
     <main className="flex-grow flex min-h-0 border-t h-full">
-      <section className="flex flex-col p-4 w-full max-w-sm flex-none bg-gray-100 min-h-0 overflow-auto ">
-        <h1 className="font-semibold mb-3">Updates to your tickets</h1>
+      <section className="flex flex-col p-4 w-full max-w-sm flex-none bg-gray-100 min-h-0 overflow-auto gap-4">
+        <header className="flex justify-between items-center">
+          <h1 className="font-semibold">Lists</h1>
+          <button
+            className="rounded-md bg-gradient-to-r from-indigo-500  via-purple-500 to-pink-500 px-4 py-2 flex items-center justify-between "
+            onClick={() => setSearchParams({ ...searchParams, modal: 'true' })}
+          >
+            <Icon icon={plus} className="text-white !flex" />
+            <span className="text-white">Add</span>
+          </button>
+        </header>
         <ul>
           {data.articles.map(({ id, title, content, updatedAt }: any) => (
             <li key={id}>
