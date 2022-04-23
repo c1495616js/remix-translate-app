@@ -10,16 +10,17 @@
     "build:remix": "remix build",
     "dev": "run-p dev:*",
     "dev:css": "npm run generate:css -- --watch",
-    "dev:node": "cross-env NODE_ENV=development nodemon ./server.js --watch ./server.js",
-    "dev:remix": "remix watch",
+    "dev:remix": "remix dev",
     "generate:css": "tailwindcss -o ./app/styles/tailwind.css",
-    "start": "cross-env NODE_ENV=production node ./server.js"
+    "start": "cross-env NODE_ENV=production node ./devServer.js"
   },
   "dependencies": {
     "@emotion/css": "^11.9.0",
     "@remix-run/express": "^1.3.5",
     "@remix-run/node": "^1.3.5",
     "@remix-run/react": "^1.3.5",
+    "@remix-run/vercel": "^1.4.1",
+    "@vercel/node": "^1.14.1",
     "clsx": "^1.1.1",
     "compression": "^1.7.4",
     "cross-env": "^7.0.3",
@@ -47,6 +48,7 @@
   "devDependencies": {
     "@remix-run/dev": "^1.3.5",
     "@remix-run/eslint-config": "^1.3.5",
+    "@remix-run/serve": "^1.4.1",
     "@tailwindcss/typography": "^0.5.2",
     "@types/draft-js": "^0.11.9",
     "@types/react": "^17.0.24",
