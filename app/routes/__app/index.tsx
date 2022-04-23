@@ -1,9 +1,13 @@
-import React from 'react';
+import type { ActionFunction } from '@remix-run/node';
 
-type Props = {};
+export const action: ActionFunction = async ({ request }) => {
+  const body = await request.formData();
+  console.log('bsss:', body);
+  return null;
+};
 
-const test = (props: Props) => {
+const Home = () => {
   return <div>Home</div>;
 };
 
-export default test;
+export default Home;

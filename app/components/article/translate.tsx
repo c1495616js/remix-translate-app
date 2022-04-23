@@ -68,7 +68,7 @@ const Translate = ({ article }: Props) => {
         <h1 className="font-bold text-2xl">Translate</h1>
         <div>
           <button
-            className="border px-4 py-2 bg-green-500 text-white flex items-center gap-2"
+            className="border px-4 py-2 bg-green-500 text-white flex items-center gap-2 rounded-md"
             type="button"
             onClick={handleTranslateSubmit}
           >
