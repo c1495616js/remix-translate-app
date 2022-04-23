@@ -11,11 +11,13 @@ import {
 import styles from './styles/tailwind.css';
 import appStyles from './styles/app.css';
 import Layout from './components/layout';
+import toastStyles from 'react-toastify/dist/ReactToastify.css';
 
 export function links() {
   return [
     { rel: 'stylesheet', href: styles },
     { rel: 'stylesheet', href: appStyles },
+    { rel: 'stylesheet', href: toastStyles },
   ];
 }
 
