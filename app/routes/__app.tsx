@@ -11,8 +11,7 @@ import { GraphQLClient, gql } from 'graphql-request';
 import clsx from 'clsx';
 import { plus } from 'react-icons-kit/fa/plus';
 import Icon from 'react-icons-kit';
-import AddArticleModal from '~/components/article/add-article.modal';
-import { getUserId } from '~/services/session.server';
+
 import { authenticator } from '~/services/auth.server';
 
 const GetArticlesQuery = gql`
@@ -70,6 +69,7 @@ const Home = (props: Props) => {
                 >
                   <span className="flex-none pt-1 pr-2">
                     <img
+                      alt="img"
                       className="h-8 w-8 rounded-md"
                       src="https://raw.githubusercontent.com/bluebrown/tailwind-zendesk-clone/master/public/assets/avatar.png"
                     />
