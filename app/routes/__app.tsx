@@ -5,12 +5,15 @@ import {
   useParams,
   useSearchParams,
 } from '@remix-run/react';
+import type { LoaderFunction } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import { GraphQLClient, gql } from 'graphql-request';
 import clsx from 'clsx';
 import { plus } from 'react-icons-kit/fa/plus';
 import Icon from 'react-icons-kit';
 import AddArticleModal from '~/components/article/add-article.modal';
+import { getUserId } from '~/services/session.server';
+import { authenticator } from '~/services/auth.server';
 
 const GetArticlesQuery = gql`
   {
@@ -23,7 +26,11 @@ const GetArticlesQuery = gql`
   }
 `;
 
-export let loader = async () => {
+export let loader: LoaderFunction = async ({ request }) => {
+  await authenticator.isAuthenticated(request, {
+    failureRedirect: '/login',
+  });
+
   const graphcms = new GraphQLClient(
     'https://api-us-west-2.graphcms.com/v2/cl2asc77z307o01yze9ic4hh2/master'
   );

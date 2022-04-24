@@ -1,5 +1,8 @@
-import { Link } from '@remix-run/react';
+import { Link, Form, useLoaderData } from '@remix-run/react';
+
 export default function Nav() {
+  const data = useLoaderData();
+
   return (
     <nav className=" border-gray-200 px-2 sm:px-4 py-2.5 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
       <div className="container flex flex-wrap justify-between items-center">
@@ -8,6 +11,13 @@ export default function Nav() {
             Translate!
           </span>
         </Link>
+        {!!data && (
+          <section>
+            <Form method="post" action="/auth/logout">
+              <button type="submit">Logout</button>
+            </Form>
+          </section>
+        )}
       </div>
     </nav>
   );

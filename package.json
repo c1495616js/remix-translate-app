@@ -41,6 +41,8 @@
     "rehype-slug": "^5.0.1",
     "rehype-toc": "^3.0.2",
     "remark-gfm": "^3.0.1",
+    "remix-auth": "^3.2.1",
+    "remix-auth-google": "^1.1.0",
     "slate": "^0.77.2",
     "slate-history": "^0.66.0",
     "slate-react": "^0.77.3"
