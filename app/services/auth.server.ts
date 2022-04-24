@@ -10,10 +10,9 @@ const authenticator = new Authenticator<any>(sessionStorage);
 
 let googleStrategy = new GoogleStrategy(
   {
-    clientID:
-      '20327221436-dgor8uaknmn871rate5rrra8pohnuukh.apps.googleusercontent.com',
-    clientSecret: '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',
-    callbackURL: 'http://localhost:3000/auth/google/callback',
+    clientID: process.env.GOOGLE_CLIENT_ID || '',
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
+    callbackURL: process.env.GOOGLE_CALLBACK_URL || '',
   },
   async ({ accessToken, refreshToken, extraParams, profile }) => {
     // Get the user data from your DB or API using the tokens and profile
