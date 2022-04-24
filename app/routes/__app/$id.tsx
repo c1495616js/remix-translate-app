@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLoaderData } from '@remix-run/react';
-import { json, ActionFunction } from '@remix-run/node';
+import type { ActionFunction } from '@remix-run/node';
+import { json } from '@remix-run/node';
 import { GraphQLClient, gql } from 'graphql-request';
 
 import Translate from '~/components/article/translate';
