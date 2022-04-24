@@ -16,7 +16,7 @@ const AddArticleModal = () => {
     >
       <Modal.Head>{param?.id ? 'Update ' : 'Add '}Article 🙋‍♀️</Modal.Head>
       <Modal.Body>
-        <Form method="post" action={param?.id ? `/${param.id}` : '/?index'}>
+        <Form method="post" action={`/article?id=${param?.id ?? ''}`}>
           <div className="flex flex-col space-y-2">
             <input
               className="text-gray-800 outline-none border-2 border-white focus:border-blue-300 p-1"
