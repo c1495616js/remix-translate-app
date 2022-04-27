@@ -74,7 +74,16 @@ const Editor = ({ article }: Props) => {
       </header>
       <main>
         <SlateEditor
-          initialData={article?.edit?.raw ? [article?.edit?.raw] : []}
+          initialData={
+            article?.edit?.raw
+              ? [article?.edit?.raw]
+              : [
+                  {
+                    type: 'paragraph',
+                    children: [{ text: '' }],
+                  },
+                ]
+          }
           slateType={SlateType.Editor}
         />
       </main>

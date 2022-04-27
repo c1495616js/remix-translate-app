@@ -11,12 +11,14 @@ import { GraphQLClient, gql } from 'graphql-request';
 import clsx from 'clsx';
 import { plus } from 'react-icons-kit/fa/plus';
 import Icon from 'react-icons-kit';
+import format from 'date-fns/format';
 
 import { authenticator } from '~/services/auth.server';
+import AddArticleModal from '~/components/article/add-article.modal';
 
 const GetArticlesQuery = gql`
   {
-    articles {
+    articles(orderBy: title_DESC) {
       id
       title
       content
@@ -45,7 +47,8 @@ const Home = (props: Props) => {
   const params = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   return (
-    <main className="flex-grow flex min-h-0 border-t h-full">
+    <main className="flex-grow flex min-h-0 border-t h-full max-h-[calc(100vh-70px)]">
+      {!params?.id && <AddArticleModal />}
       <section className="flex flex-col p-4 w-full max-w-sm flex-none bg-gray-100 min-h-0 overflow-auto gap-4">
         <header className="flex justify-between items-center">
           <h1 className="font-semibold">Lists</h1>
@@ -67,13 +70,6 @@ const Home = (props: Props) => {
                     { 'border-green-500': params?.id === id }
                   )}
                 >
-                  <span className="flex-none pt-1 pr-2">
-                    <img
-                      alt="img"
-                      className="h-8 w-8 rounded-md"
-                      src="https://raw.githubusercontent.com/bluebrown/tailwind-zendesk-clone/master/public/assets/avatar.png"
-                    />
-                  </span>
                   <div className="flex-1 w-full">
                     <header className="mb-1">{title}</header>
 
@@ -87,7 +83,7 @@ const Home = (props: Props) => {
                     </p>
 
                     <footer className="text-gray-500 mt-2 text-sm">
-                      {updatedAt}
+                      {format(new Date(updatedAt), 'yyyy-MM-dd HH:mm')}
                     </footer>
                   </div>
                 </article>

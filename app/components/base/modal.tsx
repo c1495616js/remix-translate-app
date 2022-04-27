@@ -75,7 +75,7 @@ const Frame: React.FC<{
       onClick={closeOnClickOutside ? onOverlayClick : undefined}
     >
       {/* container: `max-w-sm` to make it reasonably narrow, `mx-auto` to center horizontally */}
-      <div className="relative w-full max-w-sm mx-auto mt-8" ref={container}>
+      <div className="relative w-full max-w-2xl mx-auto mt-8" ref={container}>
         {/* contents */}
         <div className="overflow-hidden bg-gray-800 rounded shadow-xl">
           {children}
@@ -100,7 +100,9 @@ const Head: React.FC = ({ children }) => (
   </div>
 );
 
-const Body: React.FC = ({ children }) => <div className="p-4">{children}</div>;
+const Body: React.FC = ({ children }) => (
+  <div className="p-4 flex justify-center">{children}</div>
+);
 
 const Modal = { Frame, Head, Body };
 
