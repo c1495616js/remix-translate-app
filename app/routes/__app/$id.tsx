@@ -1,17 +1,18 @@
 import React from 'react';
 import { useLoaderData } from '@remix-run/react';
-import type { ActionFunction } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import { GraphQLClient, gql } from 'graphql-request';
 
 import Translate from '~/components/article/translate';
 import Editor from '~/components/article/editor';
+import AddArticleModal from '~/components/article/add-article.modal';
 
 const GetArticleById = gql`
   query ArticleQuery($id: ID!) {
     article(where: { id: $id }) {
       id
       title
+      content
       translate {
         raw
       }
@@ -33,22 +34,26 @@ export let loader = async ({ params }: any) => {
     id,
   });
 
-  return json({ article });
-};
-
-export const action: ActionFunction = async ({ request }) => {
-  const body = await request.formData();
-  console.log('bsss:', body);
-  return null;
+  return json({
+    article,
+  });
 };
 
 const ArticleId = () => {
   const { article } = useLoaderData();
-
+  const [loadModal, setLoadModal] = React.useState(!!article);
+  React.useEffect(() => {
+    setLoadModal(false);
+    setTimeout(() => {
+      setLoadModal(true);
+    }, 500);
+  }, [article?.id]);
   return (
     <div className="grid grid-cols-2">
-      <Translate article={article} />
-      <Editor article={article} />
+      {!loadModal && <div className="p-4">Loading...</div>}
+      {loadModal && <AddArticleModal />}
+      {loadModal && <Translate article={article} />}
+      {loadModal && <Editor article={article} />}
     </div>
   );
 };

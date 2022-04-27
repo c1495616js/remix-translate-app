@@ -8,7 +8,6 @@ const LayoutIndex: FC = ({ children }) => {
   return (
     <div className="h-full flex flex-col">
       <ToastContainer />
-      <AddArticleModal />
       <section>
         <Nav />
       </section>

@@ -61,6 +61,7 @@ const Translate = ({ article }: Props) => {
       });
     }
   };
+  console.log('hhh:', article?.translate?.raw);
 
   return (
     <section className="p-8 flex flex-col gap-4">
@@ -79,7 +80,16 @@ const Translate = ({ article }: Props) => {
       </header>
       <main>
         <SlateEditor
-          initialData={article?.translate?.raw ? [article?.translate?.raw] : []}
+          initialData={
+            article?.translate?.raw
+              ? [article?.translate?.raw]
+              : [
+                  {
+                    type: 'paragraph',
+                    children: [{ text: '' }],
+                  },
+                ]
+          }
           slateType={SlateType.Translate}
         />
       </main>
