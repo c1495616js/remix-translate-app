@@ -1,14 +1,10 @@
 import React from 'react';
-import { useFetcher, useSearchParams, useLoaderData } from '@remix-run/react';
+import { useFetcher, useLoaderData } from '@remix-run/react';
 import { GraphQLClient, gql } from 'graphql-request';
 import { toast } from 'react-toastify';
 
 import SlateEditor from '~/components/article/slate';
 import { SlateType } from '~/types/enum';
-
-type Props = {
-  article?: any;
-};
 
 const updateEditorById = gql`
   mutation UpdateArticle($id: ID!, $edit: RichTextAST!) {
@@ -28,15 +24,14 @@ const publishArticle = gql`
 
 const Editor = () => {
   const { article } = useLoaderData();
+  const fetcher = useFetcher();
+
   const toastId = React.useRef<React.ReactText | undefined>(undefined);
   const loading = () =>
     (toastId.current = toast.loading('Saving Edition...', {
       position: toast.POSITION.TOP_CENTER,
     }));
   const dismiss = () => toast.dismiss(toastId.current);
-
-  const fetcher = useFetcher();
-  const [searchParams, setSearchParams] = useSearchParams();
 
   const handleEditorSubmit = async () => {
     const value = JSON.parse(localStorage.getItem(SlateType.Editor) || '[]');
