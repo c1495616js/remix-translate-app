@@ -41,16 +41,24 @@ export let loader: LoaderFunction = async ({ request }) => {
   return json({ articles });
 };
 
-type Props = {};
-const Home = (props: Props) => {
+const Home = () => {
   let data = useLoaderData();
   const params = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   return (
     <main className="flex-grow flex min-h-0 border-t h-full max-h-[calc(100vh-70px)]">
       {!params?.id && <AddArticleModal />}
-      <section className="flex flex-col p-4 w-full max-w-sm flex-none bg-gray-100 min-h-0 overflow-auto gap-4">
-        <header className="flex justify-between items-center">
+      {/* List section */}
+      <section
+        className={clsx(
+          'sm:flex flex-col p-4 w-full max-w-sm flex-none bg-gray-100 min-h-0 overflow-auto gap-4',
+          {
+            hidden:
+              searchParams.get('list') === 'false' || !searchParams.get('list'),
+          }
+        )}
+      >
+        <header className="flex justify-between items-center mb-4 sm:mb-0">
           <h1 className="font-semibold">Lists</h1>
           <button
             className="rounded-md bg-gradient-to-r from-indigo-500  via-purple-500 to-pink-500 px-4 py-2 flex items-center justify-between "
