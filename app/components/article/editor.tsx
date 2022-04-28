@@ -1,13 +1,10 @@
 import React from 'react';
+import { useFetcher, useLoaderData } from '@remix-run/react';
 import { GraphQLClient, gql } from 'graphql-request';
 import { toast } from 'react-toastify';
 
 import SlateEditor from '~/components/article/slate';
 import { SlateType } from '~/types/enum';
-
-type Props = {
-  article: any;
-};
 
 const updateEditorById = gql`
   mutation UpdateArticle($id: ID!, $edit: RichTextAST!) {
@@ -25,7 +22,10 @@ const publishArticle = gql`
   }
 `;
 
-const Editor = ({ article }: Props) => {
+const Editor = () => {
+  const { article } = useLoaderData();
+  const fetcher = useFetcher();
+
   const toastId = React.useRef<React.ReactText | undefined>(undefined);
   const loading = () =>
     (toastId.current = toast.loading('Saving Edition...', {
@@ -52,6 +52,17 @@ const Editor = ({ article }: Props) => {
     }
   };
 
+  React.useEffect(() => {
+    if (fetcher.type === 'done' && fetcher.data.article) {
+      const data = fetcher.data.article;
+      window?.open(
+        `https://mail.google.com/mail/?view=cm&fs=1&su=${data?.title}&body=${data?.edit?.text}`,
+        '__blank'
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fetcher.type, fetcher?.data?.article?.edit?.text]);
+
   return (
     <section className="p-8 flex flex-col gap-4">
       <header className="flex items-center justify-between">
@@ -64,9 +75,13 @@ const Editor = ({ article }: Props) => {
           >
             Save
           </button>
+
           <button
             className="border px-4 py-2 bg-purple-500 text-white"
             type="button"
+            onClick={() => {
+              fetcher.load(`/${article?.id}`);
+            }}
           >
             Email
           </button>

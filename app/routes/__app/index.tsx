@@ -1,5 +1,3 @@
-import AddArticleModal from '~/components/article/add-article.modal';
-
 const Home = () => {
   return (
     <div className="flex items-center justify-center h-full bg-black/80">

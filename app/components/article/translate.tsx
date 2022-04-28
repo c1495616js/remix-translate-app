@@ -3,13 +3,10 @@ import { GraphQLClient, gql } from 'graphql-request';
 import { toast } from 'react-toastify';
 import Icon from 'react-icons-kit';
 import { save } from 'react-icons-kit/fa/save';
+import { useLoaderData } from '@remix-run/react';
 
 import SlateEditor from '~/components/article/slate';
 import { SlateType } from '~/types/enum';
-
-type Props = {
-  article: any;
-};
 
 const updateTranslateById = gql`
   mutation UpdateArticle($id: ID!, $translate: RichTextAST!) {
@@ -35,7 +32,9 @@ const publishArticle = gql`
   }
 `;
 
-const Translate = ({ article }: Props) => {
+const Translate = () => {
+  const { article } = useLoaderData();
+
   const toastId = React.useRef<React.ReactText | undefined>(undefined);
   const loading = () =>
     (toastId.current = toast.loading('Saving Translation...', {
@@ -61,7 +60,6 @@ const Translate = ({ article }: Props) => {
       });
     }
   };
-  console.log('hhh:', article?.translate?.raw);
 
   return (
     <section className="p-8 flex flex-col gap-4">

@@ -15,9 +15,13 @@ const GetArticleById = gql`
       content
       translate {
         raw
+        text
+        html
       }
       edit {
         raw
+        text
+        html
       }
     }
   }
@@ -42,18 +46,20 @@ export let loader = async ({ params }: any) => {
 const ArticleId = () => {
   const { article } = useLoaderData();
   const [loadModal, setLoadModal] = React.useState(!!article);
+
   React.useEffect(() => {
     setLoadModal(false);
     setTimeout(() => {
       setLoadModal(true);
     }, 500);
   }, [article?.id]);
+
   return (
     <div className="grid grid-cols-2">
       {!loadModal && <div className="p-4">Loading...</div>}
       {loadModal && <AddArticleModal />}
-      {loadModal && <Translate article={article} />}
-      {loadModal && <Editor article={article} />}
+      {loadModal && <Translate />}
+      {loadModal && <Editor />}
     </div>
   );
 };
