@@ -12,6 +12,14 @@ export const validator = withZod(
   })
 );
 
+export const gmailValidator = withZod(
+  z.object({
+    title: z.string().nonempty('Title is required'),
+    content: z.string().nonempty('Content is required'),
+    to: z.string().email().nonempty('Email is required'),
+  })
+);
+
 const updateArticleById = gql`
   mutation UpdateArticle($id: ID!, $title: String!, $content: String) {
     updateArticle(

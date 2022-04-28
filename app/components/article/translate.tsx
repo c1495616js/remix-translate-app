@@ -61,7 +61,6 @@ const Translate = ({ article }: Props) => {
       });
     }
   };
-  console.log('hhh:', article?.translate?.raw);
 
   return (
     <section className="p-8 flex flex-col gap-4">
